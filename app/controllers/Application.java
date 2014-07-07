@@ -24,4 +24,11 @@ public class Application extends Controller {
       index();
     } 
 
+    public static void markComplete(Long id) {
+      Item item = Item.findById(id);
+      item.isComplete = true;
+      item.save();
+      index();
+    }
+
 }

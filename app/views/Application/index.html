@@ -4,7 +4,7 @@
 #{form @Application.addItem(), method:'GET'}
   <fieldset>
     #{ifErrors}
-      <p>All fields required</p>
+      <p class="errors">All fields required</p>
     #{/ifErrors}
     <label for="item">Add new todo</label>
     <input type="text" name="item" id="item" value="" /><br />
@@ -14,9 +14,23 @@
 
 <ul>
   #{list items:items, as: 'item'}
-    <li>
-      <input type="checkbox" name="complete" id="complete" value="" ${item.isComplete ? "checked" : ""} />
-      ${item.content}
+    <li id='${item.id}'>
+      <input type="checkbox" name="complete" id="complete" ${item.isComplete ? "checked disabled" : ""} />
+      <span class=${item.isComplete ? "complete" : "incomplete"}>${item.content}</span>
     </li>
   #{/list}
 </ul>
+
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    $("input[type=checkbox]").click(function(e){
+      var li = $(this.parentNode);
+      var id = li.attr("id");
+      var markComplete = #{jsAction @markComplete(":id") /};
+      $.post(markComplete({id: id}), function(){
+        li.find("input[type=checkbox]").prop("disabled", "disabled");
+        li.find("span").attr("class", "complete");
+      });
+    });
+  });
+</script>
