@@ -24,9 +24,9 @@ public class Application extends Controller {
       index();
     } 
 
-    public static void markComplete(Long id) {
+    public static void markComplete(Long id, boolean isComplete) {
       Item item = Item.findById(id);
-      item.isComplete = true;
+      item.isComplete = isComplete;
       item.save();
       index();
     }

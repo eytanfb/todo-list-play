@@ -17,7 +17,7 @@
 <ul>
   #{list items:items, as: 'item'}
     <li id='${item.id}'>
-      <input type="checkbox" name="complete" id="complete" ${item.isComplete ? "checked disabled" : ""} />
+      <input type="checkbox" name="complete" id="complete" ${item.isComplete ? "checked" : ""} />
       <span class=${item.isComplete ? "complete" : "incomplete"}>${item.content}</span>
     </li>
   #{/list}
@@ -28,10 +28,11 @@
     $("input[type=checkbox]").click(function(e){
       var li = $(this.parentNode);
       var id = li.attr("id");
-      var markComplete = #{jsAction @markComplete(":id") /};
-      $.post(markComplete({id: id}), function(){
-        li.find("input[type=checkbox]").prop("disabled", "disabled");
-        li.find("span").attr("class", "complete");
+      var isComplete = li.find("input[type=checkbox]").prop("checked");
+      var markComplete = #{jsAction @markComplete(":id", ":isComplete") /};
+      $.post(markComplete({id: id, isComplete: isComplete}), function(){
+        if(isComplete) li.find("span").attr("class", "complete");
+        else li.find("span").attr("class", "incomplete");
       });
     });
   });
