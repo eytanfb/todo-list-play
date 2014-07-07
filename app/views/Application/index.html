@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-#{form @Application.addItem(), method:'GET'}
+#{form @Items.addItem(), method:'GET'}
   <fieldset class="col-lg-6"> 
     #{ifErrors}
       <p class="errors">All fields required</p>
@@ -29,7 +29,7 @@
       var li = $(this.parentNode);
       var id = li.attr("id");
       var isComplete = li.find("input[type=checkbox]").prop("checked");
-      var markComplete = #{jsAction @markComplete(":id", ":isComplete") /};
+      var markComplete = #{jsAction @Items.markComplete(":id", ":isComplete") /};
       $.post(markComplete({id: id, isComplete: isComplete}), function(){
         if(isComplete) li.find("span").attr("class", "complete");
         else li.find("span").attr("class", "incomplete");
