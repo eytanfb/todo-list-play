@@ -2,13 +2,15 @@
 #{set title:'Home' /}
 
 #{form @Application.addItem(), method:'GET'}
-  <fieldset>
+  <fieldset class="col-lg-6"> 
     #{ifErrors}
       <p class="errors">All fields required</p>
     #{/ifErrors}
-    <label for="item">Add new todo</label>
-    <input type="text" name="item" id="item" value="" /><br />
-    <input type="submit" name="submit" id="" value="Submit" />
+    <div class="form-group">
+      <label for="item">Add new todo</label>
+      <input type="text" class="form-control" name="item" id="item" />
+    </div>
+       <input type="submit" name="submit" id="" class="btn btn-success" value="Add Item" />
   </fieldset>
 #{/form}
 
