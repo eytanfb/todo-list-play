@@ -1,3 +1,22 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
+#{form @Application.addItem(), method:'GET'}
+  <fieldset>
+    #{ifErrors}
+      <p>All fields required</p>
+    #{/ifErrors}
+    <label for="item">Add new todo</label>
+    <input type="text" name="item" id="item" value="" /><br />
+    <input type="submit" name="submit" id="" value="Submit" />
+  </fieldset>
+#{/form}
+
+<ul>
+  #{list items:items, as: 'item'}
+    <li>
+      <input type="checkbox" name="complete" id="complete" value="" ${item.isComplete ? "checked" : ""} />
+      ${item.content}
+    </li>
+  #{/list}
+</ul>
