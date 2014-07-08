@@ -1,7 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
+<<<<<<< HEAD
 #{form @Items.addItem(), method:'POST'}
+=======
+#{form @ItemsController.addItem(), method:'POST'}
+>>>>>>> dev
   <fieldset class="col-lg-6"> 
     #{ifErrors}
       <p class="errors">All fields required</p>
@@ -18,7 +22,11 @@
   #{list items:items, as: 'item'}
     <li id='${item.id}'>
       <input type="checkbox" name="complete" id="complete" ${item.isComplete ? "checked" : ""} />
+<<<<<<< HEAD
       <a href="@{Items.show(item.id)}" class=${item.isComplete ? "complete" : "incomplete"}> ${item.content}</a>
+=======
+      <a href="@{ItemsController.show(item.id)}" class="${item.isComplete ? 'complete' : 'incomplete'}">${item.content} (${item.subItems.size()} sub item${item.subItems.size().pluralize()})</a>
+>>>>>>> dev
     </li>
   #{/list}
 </ul>
@@ -29,10 +37,14 @@
       var li = $(this.parentNode);
       var id = li.attr("id");
       var isComplete = li.find("input[type=checkbox]").prop("checked");
+<<<<<<< HEAD
       var markComplete = #{jsAction @Items.markComplete(":id", ":isComplete") /};
+=======
+      var markComplete = #{jsAction @ItemsController.markComplete(":id", ":isComplete") /};
+>>>>>>> dev
       $.post(markComplete({id: id, isComplete: isComplete}), function(){
-        if(isComplete) li.find("span").attr("class", "complete");
-        else li.find("span").attr("class", "incomplete");
+        if(isComplete) li.find("a").attr("class", "complete");
+        else li.find("a").attr("class", "incomplete");
       });
     });
   });

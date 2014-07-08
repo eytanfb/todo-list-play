@@ -4,10 +4,15 @@
 
 # Home page
 GET     /                                       Application.index
+<<<<<<< HEAD
 GET     /items/{id}                             Items.show
 POST    /items                                  Items.addItem
 POST    /subitems                               SubItems.addSubItem
 
+=======
+GET     /items/{id}                             ItemsController.show
+POST    /items                                  ItemsController.addItem
+>>>>>>> dev
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

@@ -1,0 +1,44 @@
+#{extends 'main.html' /}
+#{set title:item.content /}
+
+<h3>${item.content} ${item.subItems.size() > 0 ? "(${item.subItems.size()} sub item${item.subItems.size().pluralize()})" : ""}</h3>
+
+#{form @SubItemsController.addItem(), method:'POST'}
+  <fieldset class="col-lg-6"> 
+    #{ifErrors}
+      <p class="errors">All fields required</p>
+    #{/ifErrors}
+    <div class="form-group">
+      <input type="hidden" name="itemId" id="itemId" value="${item.id}" />
+      <label for="item">Add new sub item</label>
+      <input type="text" class="form-control" name="content" id="content" />
+    </div>
+       <input type="submit" name="submit" id="" class="btn btn-success" value="Add Sub Item" />
+  </fieldset>
+#{/form}
+
+<ul>
+  #{list items:item.subItems, as: 'item'}
+    <li id='${item.id}'>
+      <input type="checkbox" name="complete" id="complete" ${item.isComplete ? "checked" : ""} />
+      <span class="${item.isComplete ? 'complete' : 'incomplete'}">${item.content}</span>
+    </li>
+  #{/list}
+</ul>
+
+<a href="@{Application.index()}" class="btn btn-primary">Back to Todos</a>
+
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    $("input[type=checkbox]").click(function(e){
+      var li = $(this.parentNode);
+      var id = li.attr("id");
+      var isComplete = li.find("input[type=checkbox]").prop("checked");
+      var markComplete = #{jsAction @SubItemsController.markComplete(":id", ":isComplete") /};
+      $.post(markComplete({id: id, isComplete: isComplete}), function(){
+        if(isComplete) li.find("span").attr("class", "complete");
+        else li.find("span").attr("class", "incomplete");
+      });
+    });
+  });
+</script>
