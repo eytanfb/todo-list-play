@@ -25,6 +25,10 @@ public class SubItems extends Application {
       SubItem subItem = SubItem.findById(id);
       subItem.isComplete = isComplete;
       subItem.save();
+      if(item.allSubItemsDone()){
+        item.isComplete = true;
+        item.save();
+      }
       Items.show(subItem.item.id);
     }
 }
