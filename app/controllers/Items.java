@@ -10,12 +10,12 @@ import models.*;
 
 public class Items extends Application {
 
-    public static void addItem(@Required String item) {
+    public static void addItem(@Required String content) {
       if(validation.hasErrors()){
         List<Item> items = Item.findAll();
         render("Application/index.html", items);
       }
-      new Item(item).save();
+      new Item(content).save();
       Application.index();
     } 
 
@@ -26,6 +26,10 @@ public class Items extends Application {
       Application.index();
     }
 
-
+    public static void show(Long id) {
+      Item item = Item.findById(id);
+      List<SubItem> subItems = item.subItems;
+      render(item, subItems);
+    }
 }
 

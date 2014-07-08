@@ -4,6 +4,9 @@
 
 # Home page
 GET     /                                       Application.index
+GET     /items/{id}                             Items.show
+POST    /items                                  Items.addItem
+POST    /subitems                               SubItems.addSubItem
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

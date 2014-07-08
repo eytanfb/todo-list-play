@@ -12,9 +12,20 @@ public class Item extends Model {
     @Required
     public String content;
     public boolean isComplete = false;
+
+    @OneToMany(mappedBy="item", cascade=CascadeType.ALL)
+    public List<SubItem> subItems;
     
     public Item(String content) {
       this.content = content;
+      subItems = new ArrayList<SubItem>();
     }
- 
+
+    public boolean allSubItemsDone(){
+      for(SubItem si: subItems){
+        if(!subItem.isComplete())
+          return false;
+      }
+      return true;
+    }
 }

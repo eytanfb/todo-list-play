@@ -1,0 +1,35 @@
+#{extends 'main.html' /}
+#{set title:item.content /}
+
+<h3>${item.content} ${item.isComplete ? "is complete" : "is not yet complete"}</h3>
+
+#{form @SubItems.addSubItem(), method:'POST'}
+  <fieldset class="col-lg-6"> 
+    #{ifErrors}
+      <p class="errors">${errors}</p>
+    #{/ifErrors}
+    <div class="form-group">
+      <input type="hidden" name="itemId" id="itemId" value="${item.id}" />
+      <label for="subItem">Add new sub item</label>
+      <input type="text" class="form-control" name="content" id="content" />
+    </div>
+       <input type="submit" name="submit" class="btn btn-success" value="Add Sub Item" />
+  </fieldset>
+#{/form}
+
+#{if item.subItems.size() > 0}
+  <h4>Sub Items to Complete</h4>
+  <ul>
+    #{list items:subItems, as: 'subItem'}
+      <li id='${subItem.id}'>
+        <input type="checkbox" name="complete" id="complete" ${subItem.isComplete ? "checked" : ""} />
+        <span class=${subItem.isComplete ? "complete" : "incomplete"}>${subItem.content}</span>
+      </li>
+    #{/list}
+  </ul>
+#{/if}
+#{else}
+  <h4>This item has no sub items</h4>
+#{/else}
+
+<p><a class="btn btn-primary" href="@{Application.index()}">Back to List</a></p>

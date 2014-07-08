@@ -1,14 +1,14 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-#{form @Items.addItem(), method:'GET'}
+#{form @Items.addItem(), method:'POST'}
   <fieldset class="col-lg-6"> 
     #{ifErrors}
       <p class="errors">All fields required</p>
     #{/ifErrors}
     <div class="form-group">
-      <label for="item">Add new todo</label>
-      <input type="text" class="form-control" name="item" id="item" />
+      <label for="content">Add new todo</label>
+      <input type="text" class="form-control" name="content" id="content" />
     </div>
        <input type="submit" name="submit" id="" class="btn btn-success" value="Add Item" />
   </fieldset>
@@ -18,7 +18,7 @@
   #{list items:items, as: 'item'}
     <li id='${item.id}'>
       <input type="checkbox" name="complete" id="complete" ${item.isComplete ? "checked" : ""} />
-      <span class=${item.isComplete ? "complete" : "incomplete"}>${item.content}</span>
+      <a href="@{Items.show(item.id)}" class=${item.isComplete ? "complete" : "incomplete"}> ${item.content}</a>
     </li>
   #{/list}
 </ul>
