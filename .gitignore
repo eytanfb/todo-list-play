@@ -3,6 +3,6 @@
 /lib
 /test-result
 /logs
-.swp
-.swo
+*.swp
+*.swo
 precompiled/
