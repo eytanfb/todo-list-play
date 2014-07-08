@@ -20,12 +20,4 @@ public class Item extends Model {
       this.content = content;
       subItems = new ArrayList<SubItem>();
     }
-
-    public boolean allSubItemsDone(){
-      for(SubItem si: subItems){
-        if(!subItem.isComplete())
-          return false;
-      }
-      return true;
-    }
 }
